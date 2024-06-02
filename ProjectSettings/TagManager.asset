@@ -12,6 +12,10 @@ TagManager:
   - Spawner
   - Enemy2
   - Scene
+  - Plate
+  - PlateCube
+  - CountDown
+  - Remove
   layers:
   - Default
   - TransparentFX
