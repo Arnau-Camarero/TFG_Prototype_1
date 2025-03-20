@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 890534843599000845}
   - component: {fileID: -1527402675677381856}
   - component: {fileID: 440893994306952525}
+  - component: {fileID: 4257090987669810610}
   - component: {fileID: 415653928344616943}
   m_Layer: 3
   m_Name: Player2
@@ -172,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8092727320853283427, guid: 0155003d351c4ce438bfbe04f3013ba4, type: 3}
   projectileSpeed: 500
+  playerLives: {fileID: 4257090987669810610}
 --- !u!114 &440893994306952525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +191,22 @@ MonoBehaviour:
   jumpForce: 3
   gravity: 9.81
   isFinished: 0
+  aliveMat: {fileID: 2100000, guid: ab4e4b24483f1cd4bbcd7335e068b9eb, type: 2}
+  injuredMat: {fileID: 2100000, guid: 8ae4a9a74368d0e49a2365d2fd474725, type: 2}
+--- !u!114 &4257090987669810610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6050869249544725030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed0e3a3f10f578418b549cb68642528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives: 0
+  isInjured: 0
 --- !u!114 &415653928344616943
 MonoBehaviour:
   m_ObjectHideFlags: 0

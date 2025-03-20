@@ -8,10 +8,12 @@ public class Timer : NetworkBehaviour
     public float countdownTime = 20f; // in seconds
     public bool LevelCompleted = false;
     public TextMeshProUGUI displayText;
+    public bool countdownStarted = false;
     private int requiredPlayers = 2; // Set this to the number of players required to start the countdown
     private int connectedPlayers = 0;
-    private bool countdownStarted = false;
     private NetworkVariable<float> networkedCountdownTime = new NetworkVariable<float>(20f);
+
+    public GameObject spawner;
 
     public override void OnNetworkSpawn()
     {
@@ -32,6 +34,7 @@ public class Timer : NetworkBehaviour
     {
         connectedPlayers++;
         CheckAndStartCountdown();
+        CheckAndStartSpawner();
     }
 
     private void OnClientDisconnected(ulong clientId)
@@ -47,6 +50,17 @@ public class Timer : NetworkBehaviour
             if (IsServer)
             {
                 StartCoroutine(StartCountdown());
+            }
+        }
+    }
+
+    private void CheckAndStartSpawner()
+    {
+        if (connectedPlayers >= requiredPlayers && !countdownStarted)
+        {
+            if (IsServer)
+            {
+                spawner.GetComponent<Spawner>().invokeEnemies();
             }
         }
     }

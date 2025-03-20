@@ -12,6 +12,8 @@ public class PlayerGun : NetworkBehaviour
     private Camera mainCamera;
     private Vector3 aimDirection;
 
+    public PlayerLives playerLives;
+
     // public override void OnNetworkSpawn(){
         // if(!IsOwner){
         //     enabled = false;
@@ -45,7 +47,7 @@ public class PlayerGun : NetworkBehaviour
 
             transform.rotation = Quaternion.LookRotation(aimDirection);
 
-            if(Input.GetButtonDown("Fire1")){
+            if(Input.GetButtonDown("Fire1") && !playerLives.isInjured.Value){
                 //Shoot a projectile from player position in that direction
                 ShootRpc(aimDirection);
             }        

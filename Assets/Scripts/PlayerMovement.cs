@@ -22,6 +22,11 @@ public class PlayerMovement : NetworkBehaviour
     private bool isGrounded = true;
     public bool isFinished = false;
 
+    //Materiales
+    public Material aliveMat;
+    public Material injuredMat;
+
+
     public override void OnNetworkSpawn(){
         if(!IsOwner){
             enabled = false;

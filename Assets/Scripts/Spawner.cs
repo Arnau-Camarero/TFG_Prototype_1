@@ -13,38 +13,76 @@ public class Spawner : NetworkBehaviour
     public int maxEnemies = 10;
     public List<GameObject> enemyCounter;
 
-    // Minimum and maximum values for random x-coordinate offset
+    // Minimum and maximum values for random z-coordinate offset
     public float minZOffset = -5.0f;
     public float maxZOffset = 5.0f;
 
+    private NetworkVariable<int> connectedPlayers = new NetworkVariable<int>(0);
+    private int requiredPlayers = 2;
+
     public override void OnNetworkSpawn(){
         if(!IsOwner){
-            enabled = false;
+            enabled=false;
             return;
         }
+        if(IsServer){
+            connectedPlayers.OnValueChanged += OnConnectedPlayersChanged;
+        }
 
-        InvokeRepeating("SpawnEnemy", 0f, spawnInterval);
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
+
+    }
+
+    private void OnClientConnected(ulong clientId)
+    {
+        connectedPlayers.Value++;
+    }
+
+    private void OnClientDisconnected(ulong clientId)
+    {
+        connectedPlayers.Value--;
+    }
+
+    private void OnConnectedPlayersChanged(int oldValue, int newValue){
+        if(newValue >= requiredPlayers){
+            invokeEnemies();
+        }
     }
 
     void SpawnEnemy()
     {
-        if( enemyCounter.Count <= maxEnemies){
-            // Get the current position of the spawner object
+        if(enemyCounter.Count <= maxEnemies){
             Vector3 spawnPosition = transform.position;
-
-            // Generate a random z-coordinate offset within the specified range
             float randomZOffset = Random.Range(minZOffset, maxZOffset);
-
-            // Apply the random offset only to the z-coordinate
             spawnPosition.z += randomZOffset;
 
-            // Spawn the prefab at the modified spawn position with the spawner's rotation
             GameObject enemy = Instantiate(objectToSpawn, spawnPosition, transform.rotation, transform);
-
             enemy.GetComponent<EnemyBehaviour>().spawner = this;
             enemy.GetComponent<NetworkObject>().Spawn(true);
 
             enemyCounter.Add(enemy);
+        }
+    }
+
+    public void invokeEnemies(){
+        if (IsServer)
+        {
+            InvokeRepeating("SpawnEnemy", 0f, spawnInterval);
+        }
+    }
+
+    public override void OnDestroy()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
+        }
+
+        if (IsServer)
+        {
+            connectedPlayers.OnValueChanged -= OnConnectedPlayersChanged;
         }
     }
 }

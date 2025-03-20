@@ -16,6 +16,7 @@ TagManager:
   - PlateCube
   - CountDown
   - Remove
+  - Injured
   layers:
   - Default
   - TransparentFX

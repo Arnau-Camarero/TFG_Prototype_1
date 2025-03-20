@@ -51,6 +51,13 @@ public class EnemyBehaviour : NetworkBehaviour
 
     }
 
+    void OnCollisionEnter(Collision collision){
+        if(collision.gameObject.tag == "Player"){
+            //Quitar una vida
+            collision.gameObject.GetComponent<PlayerLives>().lives --;
+        }
+    }
+
     public override void OnDestroy(){
         spawner.enemyCounter.Remove(this.gameObject);
     }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1731574618551238823}
   - component: {fileID: 5520230328624670409}
   - component: {fileID: 3578748241916908752}
+  - component: {fileID: -301670761791669328}
   - component: {fileID: 5172689143095698625}
   - component: {fileID: -1885930411363224881}
   m_Layer: 3
@@ -176,6 +177,8 @@ MonoBehaviour:
   jumpForce: 3
   gravity: 9.81
   isFinished: 0
+  aliveMat: {fileID: 2100000, guid: 6c6d00c8af468be49a8b8030f5445ceb, type: 2}
+  injuredMat: {fileID: 2100000, guid: 8ae4a9a74368d0e49a2365d2fd474725, type: 2}
 --- !u!114 &3578748241916908752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +193,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8092727320853283427, guid: 0155003d351c4ce438bfbe04f3013ba4, type: 3}
   projectileSpeed: 500
+  playerLives: {fileID: -301670761791669328}
+--- !u!114 &-301670761791669328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830300460710888234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed0e3a3f10f578418b549cb68642528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives: 0
+  isInjured: 0
 --- !u!114 &5172689143095698625
 MonoBehaviour:
   m_ObjectHideFlags: 0
