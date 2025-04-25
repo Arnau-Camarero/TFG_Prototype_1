@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 0}
-  speed: 13
+  speed: 12
   playerTag: Player
 --- !u!114 &7667038099753501565
 MonoBehaviour:

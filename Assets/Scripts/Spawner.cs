@@ -9,8 +9,8 @@ public class Spawner : NetworkBehaviour
     public GameObject objectToSpawn;
 
     // Spawn interval in seconds
-    public float spawnInterval = 2f;
-    public int maxEnemies = 10;
+    public float spawnInterval = 0.75f;
+    public int maxEnemies = 15;
     public List<GameObject> enemyCounter;
 
     // Minimum and maximum values for random z-coordinate offset
@@ -68,6 +68,7 @@ public class Spawner : NetworkBehaviour
     public void invokeEnemies(){
         if (IsServer)
         {
+            InvokeRepeating("SpawnEnemy", 0f, spawnInterval);
             InvokeRepeating("SpawnEnemy", 0f, spawnInterval);
         }
     }
